@@ -1,0 +1,1 @@
+require( global.process.cwd().replace( /\\/gi, "/" ) + '/index.js' );

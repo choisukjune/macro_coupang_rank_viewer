@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coupang Keyword Ranking Viewer</title>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <style>
+    body {
+        padding:0px;
+        background-color: #eee;
+     }
+    table{
+        width : 100%;
+        background-color : #ccc
+    }
+    tr{ margin : 1px; }
+    td{
+        border : 0px solid #ccc;
+        padding: 3px;
+        background-color : #fff;
+        font-size :11px;
+    }
+    .card{
+        box-shadow : 0 0px 0px 0 #d4d4d5, 0 0 0 0px #d4d4d5!important;
+        border-radius: 0!important;
+        border: 1px solid #ddd!important;
+    }
+    .card:last-child{
+    border-radius: 0 0 0 0!important;
+    }
+    .card:first-child{
+      border-radius: 0 0 0 0!important;
+    }
+    .content{
+        border-top: 0px solid rgba(34,36,38,.1)!important;
+    }
+    #itemTag{
+        background-color: #ff0000;
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        z-index: 999;
+        left: 0px;
+        top: 0px;
+        color: #fff;
+        border-radius: 0px!important;
+        text-align: center;
+        line-height: 40px;
+        font-weight: bolder;
+    }
+    a{
+        color : #555!important;
+    }
+    #itemTagTitle{
+        font-size: 11px;
+        color: red;
+        margin-left: 5px;
+    }
+    .cardTitle{
+        border-bottom: 1px solid #ddd;
+        line-height: 0px;
+        padding: 10px;
+    }
+    .cardTitleImg{
+        border-radius: 500rem!important;
+        margin-right: .25em;
+        display: inline-block;
+        width: 2em;
+        height: 2em;
+    }
+    </style>
+    <script>
+	
+
+	window._coupang_ = {};
+	window._coupang_.data = [];
+	
+	window._coupang_.caryophy_prd_ids = [
+		  "76341489493"
+		, "76341490149"
+		, "76341490061"
+		, "76341489613"
+		, "76341490124"
+		, "76341489331"
+		, "76341489524"
+		, "76341489313"
+		, "76341490028"
+		, "76341489650"
+		, "76341489457"
+		, "76341489970"
+		, "76341489722"
+		, "76341489566"
+		, "76341489851"
+		, "76341489303"
+		, "76341489349"
+		, "76341489911"
+		, "76341489410"
+		, "76341489363"
+		, "76341489390"
+		, "76341489943"
+		, "76341489590"
+		, "76341489424"
+		, "76341489792"
+		, "76341489545"
+		, "76341489999"
+		, "76341489431"
+		, "76341490096"
+		, "76341489879"
+		, "76306577904"
+		, "76306577852"
+		, "76306577860"
+		, "76306577916"
+		, "76306577872"
+		, "76306577890"
+		, "76302546351"
+		, "76302546283"
+		, "76302546226"
+		, "76302546258"
+		, "76302546332"
+		, "76302546309"
+		, "73509711624"
+		, "73509693481"
+		, "73509665949"
+		, "73509640353"
+		, "73509615336"
+		, "73509577265"
+		, "73509540864"
+	]
+
+	var prdCard = `
+	<div class="card prdCard" style="background-color :#fff;" id="<!=ID=!>">
+		<!--div class="cardTitle">
+
+			<span class="right floated">
+				<svg aria-label="옵션 더 보기" class="_8-yf5 " fill="#262626" height="22" viewBox="0 0 48 48" width="16">
+					<circle clip-rule="evenodd" cx="8" cy="24" fill-rule="evenodd" r="4.5"></circle>
+					<circle clip-rule="evenodd" cx="24" cy="24" fill-rule="evenodd" r="4.5"></circle>
+					<circle clip-rule="evenodd" cx="40" cy="24" fill-rule="evenodd" r="4.5"></circle>
+				</svg>   
+			</span>
+		</div-->
+			<!--span class="right floated" style="position: absolute;z-index: 999;right: 5px;">
+				<svg aria-label="옵션 더 보기" class="_8-yf5 " fill="#262626" height="22" viewBox="0 0 48 48" width="16">
+					<circle clip-rule="evenodd" cx="8" cy="24" fill-rule="evenodd" r="4.5"></circle>
+					<circle clip-rule="evenodd" cx="24" cy="24" fill-rule="evenodd" r="4.5"></circle>
+					<circle clip-rule="evenodd" cx="40" cy="24" fill-rule="evenodd" r="4.5"></circle>
+				</svg>   
+			</span-->
+		<a href="<!=href=!>" target="_blank" class="image" style="min-heigt:100px;background-color:#fff;"><img src="<!=thmbnail=!>" onerror="return imageOnError(this);"><!=isSoldOut=!><!=sale_rat=!><!=rank=!><!=isNew=!></a>
+		<div class="content">
+		<!--div class="meta" style="margin:0px 0px 10px 0px;">
+			<span class="_btn_like">
+				<svg aria-label="좋아요" class="_8-yf5 like" fill="#262626" height="16" viewBox="0 0 48 48" clicked="0" width="16">
+					<path d="M34.6 6.1c5.7 0 10.4 5.2 10.4 11.5 0 6.8-5.9 11-11.5 16S25 41.3 24 41.9c-1.1-.7-4.7-4-9.5-8.3-5.7-5-11.5-9.2-11.5-16C3 11.3 7.7 6.1 13.4 6.1c4.2 0 6.5 2 8.1 4.3 1.9 2.6 2.2 3.9 2.5 3.9.3 0 .6-1.3 2.5-3.9 1.6-2.3 3.9-4.3 8.1-4.3m0-3c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5.6 0 1.1-.2 1.6-.5 1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z"></path>
+				</svg>
+				<svg aria-label="댓글 달기" class="_8-yf5 " fill="#262626" height="16" viewBox="0 0 48 48" width="16">
+					<path clip-rule="evenodd" d="M47.5 46.1l-2.8-11c1.8-3.3 2.8-7.1 2.8-11.1C47.5 11 37 .5 24 .5S.5 11 .5 24 11 47.5 24 47.5c4 0 7.8-1 11.1-2.8l11 2.8c.8.2 1.6-.6 1.4-1.4zm-3-22.1c0 4-1 7-2.6 10-.2.4-.3.9-.2 1.4l2.1 8.4-8.3-2.1c-.5-.1-1-.1-1.4.2-1.8 1-5.2 2.6-10 2.6-11.4 0-20.6-9.2-20.6-20.5S12.7 3.5 24 3.5 44.5 12.7 44.5 24z" fill-rule="evenodd"></path>
+				</svg>
+				<svg aria-label="게시물 공유" class="_8-yf5 " fill="#262626" height="16" viewBox="0 0 48 48" width="16">
+					<path d="M47.8 3.8c-.3-.5-.8-.8-1.3-.8h-45C.9 3.1.3 3.5.1 4S0 5.2.4 5.7l15.9 15.6 5.5 22.6c.1.6.6 1 1.2 1.1h.2c.5 0 1-.3 1.3-.7l23.2-39c.4-.4.4-1 .1-1.5zM5.2 6.1h35.5L18 18.7 5.2 6.1zm18.7 33.6l-4.4-18.4L42.4 8.6 23.9 39.7z"></path>
+				</svg>
+			</span>
+			<span class="right floated">
+				<svg aria-label="저장" class="_8-yf5 " fill="#262626" height="16" viewBox="0 0 48 48" clicked="0" width="16">
+					<path d="M43.5 48c-.4 0-.8-.2-1.1-.4L24 29 5.6 47.6c-.4.4-1.1.6-1.6.3-.6-.2-1-.8-1-1.4v-45C3 .7 3.7 0 4.5 0h39c.8 0 1.5.7 1.5 1.5v45c0 .6-.4 1.2-.9 1.4-.2.1-.4.1-.6.1zM24 26c.8 0 1.6.3 2.2.9l15.8 16V3H6v39.9l15.8-16c.6-.6 1.4-.9 2.2-.9z"></path>
+				</svg>
+			</span>
+
+		</div-->
+		<div class="description" style="font-size:11px;word-break: break-all;margin-top: 3px;">
+		<div>
+			<a href="<!=href=!>" target="_blank" style="margin-top: 0.2em;">
+				
+				<!=BRAND_NM=!>
+				<div style="font-size: 11px;color: #aaa;"><!=title=!></div>
+				<div style="margin: 3px 0px 10px 0px;">
+					<span style="font-size:9px;color:#ccc"><!=msrp=!></span>
+					<span style="font-size:11px"><!=salePrice=!></span>
+					<span class="right floated"></span>
+				</div>
+			</a>
+			<!--img class="ui avatar image" src="<!=brandFavicon=!>"-->
+			<!--span><!=websiteNm=!></span-->
+		</div>
+		<!=extInfo=!>
+		</div>
+		</div>
+		<!--div class="extra content">
+			<span>댓글달기...</span>
+			<span class="right floated">게시</span>
+		</div-->
+	</div>
+	`
+
+    var AvatarImage = function(letters, size) {
+        var canvas = window.document.createElement('canvas');
+        var context = canvas.getContext("2d");
+        var size = size || 60;
+    
+        // Generate a random color every time function is called
+        var color =  "#" + (Math.random() * 0xFFFFFF << 0).toString(16);
+    
+        // Set canvas with & height
+        canvas.width = size;
+        canvas.height = size;
+    
+        // Select a font family to support different language characters
+        // like Arial
+        context.font = Math.round(canvas.width / 2) + "px Arial";
+        context.textAlign = "center";
+    
+        // Setup background and front color
+        context.fillStyle = color;
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.fillStyle = "#FFF";
+        context.fillText(letters, size / 2, size / 1.5);
+    
+        // Set image representation in default format (png)
+        dataURI = canvas.toDataURL();
+    
+        // Dispose canvas element
+        canvas = null;
+    
+        return dataURI;
+    }
+
+
+    
+    var htmlToElement = function(html) {
+        var template = document.createElement('template');
+        html = html.trim(); // Never return a text node of whitespace as the result
+        template.innerHTML = html;
+        var r = {
+            cnt : template.content.children.length
+            , data : template.content
+        }
+        
+        return r;
+    }
+    
+
+    var loader = {};
+        loader.on = function(){
+            var _el = window.document.getElementById( "loader" );
+            _el.style.display = "block"
+        }
+        loader.off = function(){
+            var _el = window.document.getElementById( "loader" );
+            setTimeout(function(){ return _el.style.display = "none" },500)
+        }
+	var insertCard = function( arr, keyword, cbFunction ){
+		var height = ( window.innerHeight - window.HTML._el.setting.bottom_pad ) + "px";
+		var r = `<div class="sixteen wide column">`
+			r += `<h4 class="ui header" id="prd_list_title"></h4>`
+			r += `<div class="ui four stackable cards" style="overflow-y: auto;height:${height}">`;
+	
+		var i = 0,iLen = arr.length,io;
+		for(;i<iLen;++i){
+			io = arr[ i ];
+			var keyword = window.HTML._el.input_keyword_search.value;
+			if( keyword !== "" )
+			{
+				if( io.nm.indexOf( keyword ) == -1 ) continue;
+			}
+
+			var sale_rat = 0;
+			var thmbnail = io.img;
+			var title = io.nm;
+			var href = io.url;
+			var websiteNm = io.websiteNm
+			//var brand = io.brand;
+//			var _brand = `<div style="margin: 0px 0px 0px 0px;"><b><!=BRAND_NM=!></b></div>`;
+			var brand = "";
+
+			/*/
+			if( io.saleRatio > 0 ) sale_rat =  "<div id='itemTag'>" + parseInt( io.saleRatio * 100 )  + "%</div>"
+			else sale_rat = "";
+			/*/
+			//if( io.saleRatio > 0 ) sale_rat =  "<span id='itemTagTitle'> - " + parseInt( io.saleRatio * 100 )  + "%</span>"
+			//else sale_rat = "";
+			if( io.saleRatio > 0 ) sale_rat =  '<span style="font-size: 10px;position: absolute;bottom: 0;right: 0;padding: 6px;background: #9600c7;color: #fff;">' + parseInt( io.saleRatio * 100 )  + '%</span>'
+			else sale_rat = "";
+			if( io.rank > 0 ) rank =  '<span style="font-size: 12px;position: absolute;top: 0;left: 0;padding: 6px;background: #ff0000;color: #fff;min-width: 30px;min-height: 30px;text-align: center;line-height: 15px;">' + io.rank  + '</span>'
+			else rank = "";
+			//*/
+			
+			if( io.salePrice != -1 ) var salePrice = '<span style="">' + " " + io.salePrice + "</span>"
+			else
+			{
+				var salePrice = '<span style="color:#000;">' + io.msrp + '</span>';	
+			}
+
+			if( io.msrp != -1 ) var msrp = '<span style="text-decoration:line-through;margin-right:0.2em;">' + " " + io.msrp + "</span>"
+			else if( io.msrp != null ) var msrp = ""
+
+			var isSoldOut = "";
+			//if( io.isSoldOut > 0 ) var isSoldOut = '<span style="font-size: 10px;position: absolute;bottom: 0;padding: 6px;background: #ff5656;color: #fff;">Sold Out</span>' 
+			
+			var isNew = "";
+			//if( io.isNew > 0 ) var isNew = '<span style="font-size: 10px;position: absolute;top: 0;left: 0;padding: 6px;background: #ff00bc;color: #fff;">New</span>' 
+			
+			//var param = paramToObject( decodeURIComponent( window.location.href ) );
+
+			var extInfo = '<div style="word-break: break-all;line-height: normal;font-size: 0.9em;margin-top: 10px;">';
+			if( io.isAd ) extInfo += '<span style="margin-right:3px;">#AD</span>'
+			if( io.isRocket ) extInfo += '<span style="margin-right:3px;">#Rocket배송</span>'
+			if( io.page ) extInfo += '<span style="margin-right:3px;">page : ' + io.page + '</span>'
+			extInfo += '<span style="margin-right:3px;">review : ' + io.review + '</span>'
+			//var _tag = tag.replace( /\[/gi,"" ).replace( /\]/gi,"" );
+		   // var reg = new RegExp( _tag,'i' )
+			
+	//		io.info.forEach(function(item){
+	//            
+	//			if( reg.test( item ) )
+	//			{
+	//				extInfo += '<span style="margin-right:3px;"><a href="/html/searchProduct.html?keyword=' + encodeURIComponent( item )  + '" style="color: #ff0000!important;text-decoration: none;font-size:1em;">#' + item + '</a></span>';
+	//			}
+	//			else extInfo += '<span style="margin-right:3px;"><a href="/html/searchProduct.html?keyword=' + encodeURIComponent( item )  + '" style="color: #aaa!important;text-decoration: none;font-size:1em;">#' + item + '</a></span>';
+	//		});
+			extInfo += "</div>";
+			
+	//		if( !window.brands.favicon[ io.websiteNm ] )
+	//		{
+	//			var brandFavicon = AvatarImage( io.websiteNm[ 0 ].toUpperCase(), 17 );
+	//		}
+	//		else var brandFavicon = window.brands.favicon[ io.websiteNm ];
+			
+			var _r = prdCard;
+				r += _r.replace( "<!=ID=!>", io._id )
+					//.replace( brandFavicon, brandFavicon )
+					//.replace( "<!=ID=!>", io._id )
+					//.replace( "<!=brandFavicon=!>", brandFavicon )
+					.replace( "<!=websiteNm=!>", websiteNm )
+					.replace( "<!=href=!>", href )
+					.replace( "<!=thmbnail=!>", thmbnail )
+					.replace( "<!=isSoldOut=!>", isSoldOut )
+					.replace( "<!=sale_rat=!>", sale_rat )
+					.replace( "<!=isNew=!>", isNew )
+					.replace( "<!=extInfo=!>", extInfo )
+					.replace( "<!=href=!>", href )
+					.replace( "<!=title=!>", title )
+					.replace( "<!=msrp=!>", msrp )
+					.replace( "<!=salePrice=!>", salePrice )
+					.replace( "<!=BRAND_NM=!>", brand )
+					.replace( "<!=rank=!>", rank )
+		   }
+
+		r += `
+			</div>
+			</div>
+		`;
+		window.HTML._el.prdList_link.innerHTML = "";
+		window.HTML._el.prdList_link.innerHTML += r;
+		window.HTML._el.prd_list_title = window.document.getElementById("prd_list_title")
+		window.HTML._el.prdList_link.style.height = window.innerHeight + "px";
+		cbFunction();
+	}
+	var insertCardByprdId = function( arr, cbFunction ){
+
+		var height = ( window.innerHeight - window.HTML._el.setting.bottom_pad ) + "px";
+		var r = `<div class="sixteen wide column">`
+			r += `<h4 class="ui header" id="prd_list_title_self"></h4>`
+			r += `<div class="ui four stackable cards" style="overflow-y: auto;height:${height}">`;
+
+		var idx = 0;
+		var i = 0,iLen = arr.length,io;
+		for(;i<iLen;++i){
+			io = arr[ i ];
+			
+			if( window._coupang_.caryophy_prd_ids.indexOf( io.prd_id ) == -1 )
+			{
+				continue;
+			}
+			
+			++idx;
+			var sale_rat = 0;
+			var thmbnail = io.img;
+			var title = io.nm;
+			var href = io.url;
+			var websiteNm = io.websiteNm
+			//var brand = io.brand;
+//			var _brand = `<div style="margin: 0px 0px 0px 0px;"><b><!=BRAND_NM=!></b></div>`;
+			var brand = "";
+			/*/
+			if( io.saleRatio > 0 ) sale_rat =  "<div id='itemTag'>" + parseInt( io.saleRatio * 100 )  + "%</div>"
+			else sale_rat = "";
+			/*/
+			//if( io.saleRatio > 0 ) sale_rat =  "<span id='itemTagTitle'> - " + parseInt( io.saleRatio * 100 )  + "%</span>"
+			//else sale_rat = "";
+			if( io.saleRatio > 0 ) sale_rat =  '<span style="font-size: 10px;position: absolute;bottom: 0;right: 0;padding: 6px;background: #9600c7;color: #fff;">' + parseInt( io.saleRatio * 100 )  + '%</span>'
+			else sale_rat = "";
+			if( io.rank > 0 ) rank =  '<span style="font-size: 12px;position: absolute;top: 0;left: 0;padding: 6px;background: #ff0000;color: #fff;min-width: 30px;min-height: 30px;text-align: center;line-height: 15px;">' + io.rank  + '</span>'
+			else rank = "";
+			//*/
+			
+			if( io.salePrice != -1 ) var salePrice = '<span style="">' + " " + io.salePrice + "</span>"
+			else
+			{
+				var salePrice = '<span style="color:#000;">' + io.msrp + '</span>';	
+			}
+
+			if( io.msrp != -1 ) var msrp = '<span style="text-decoration:line-through;margin-right:0.2em;">' + " " + io.msrp + "</span>"
+			else if( io.msrp != null ) var msrp = ""
+
+			var isSoldOut = "";
+			//if( io.isSoldOut > 0 ) var isSoldOut = '<span style="font-size: 10px;position: absolute;bottom: 0;padding: 6px;background: #ff5656;color: #fff;">Sold Out</span>' 
+			
+			var isNew = "";
+			//if( io.isNew > 0 ) var isNew = '<span style="font-size: 10px;position: absolute;top: 0;left: 0;padding: 6px;background: #ff00bc;color: #fff;">New</span>' 
+			
+			//var param = paramToObject( decodeURIComponent( window.location.href ) );
+
+			var extInfo = '<div style="word-break: break-all;line-height: normal;font-size: 0.9em;margin-top: 10px;">';
+			if( io.isAd ) extInfo += '<span style="margin-right:3px;">#AD</span>'
+			if( io.isRocket ) extInfo += '<span style="margin-right:3px;">#Rocket배송</span>'
+			if( io.page ) extInfo += '<span style="margin-right:3px;">page : ' + io.page + '</span>'
+			extInfo += '<span style="margin-right:3px;">review : ' + io.review + '</span>'
+			//var _tag = tag.replace( /\[/gi,"" ).replace( /\]/gi,"" );
+		   // var reg = new RegExp( _tag,'i' )
+			
+	//		io.info.forEach(function(item){
+	//            
+	//			if( reg.test( item ) )
+	//			{
+	//				extInfo += '<span style="margin-right:3px;"><a href="/html/searchProduct.html?keyword=' + encodeURIComponent( item )  + '" style="color: #ff0000!important;text-decoration: none;font-size:1em;">#' + item + '</a></span>';
+	//			}
+	//			else extInfo += '<span style="margin-right:3px;"><a href="/html/searchProduct.html?keyword=' + encodeURIComponent( item )  + '" style="color: #aaa!important;text-decoration: none;font-size:1em;">#' + item + '</a></span>';
+	//		});
+			extInfo += "</div>";
+			
+	//		if( !window.brands.favicon[ io.websiteNm ] )
+	//		{
+	//			var brandFavicon = AvatarImage( io.websiteNm[ 0 ].toUpperCase(), 17 );
+	//		}
+	//		else var brandFavicon = window.brands.favicon[ io.websiteNm ];
+			
+			var _r = prdCard;
+				r += _r.replace( "<!=ID=!>", io._id )
+					//.replace( brandFavicon, brandFavicon )
+					//.replace( "<!=ID=!>", io._id )
+					//.replace( "<!=brandFavicon=!>", brandFavicon )
+					.replace( "<!=websiteNm=!>", websiteNm )
+					.replace( "<!=href=!>", href )
+					.replace( "<!=thmbnail=!>", thmbnail )
+					.replace( "<!=isSoldOut=!>", isSoldOut )
+					.replace( "<!=sale_rat=!>", sale_rat )
+					.replace( "<!=isNew=!>", isNew )
+					.replace( "<!=extInfo=!>", extInfo )
+					.replace( "<!=href=!>", href )
+					.replace( "<!=title=!>", title )
+					.replace( "<!=msrp=!>", msrp )
+					.replace( "<!=salePrice=!>", salePrice )
+					.replace( "<!=BRAND_NM=!>", brand )
+					.replace( "<!=rank=!>", rank )
+		   }
+
+		r += `
+			</div>
+			</div>
+		`;
+		window.HTML._el.prdList_link_caryophy.innerHTML = "";
+
+		if( !idx )	
+		{
+
+		var r = `<div class="sixteen wide column">`
+			r += `<h4 class="ui header" id="prd_list_title_self"></h4>`
+			r += `				
+				<div class="sixteen wide column" style="margin-top:50%;text-align:center;">
+					<h4 class="ui header">데이터가 존재하지 않음!</h4>
+				</div>`
+			r += `
+				</div>
+			`;
+		}
+		window.HTML._el.prdList_link_caryophy.innerHTML = r;
+		window.HTML._el.prd_list_title_self = window.document.getElementById("prd_list_title_self")	
+
+		cbFunction();
+	}
+
+	var getDataByJson = function(url,cbFunction){
+		
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() { // 요청에 대한 콜백
+		  if (xhr.readyState === xhr.DONE) { // 요청이 완료되면
+			if (xhr.status === 200 || xhr.status === 201) {
+				console.log(xhr.responseText);
+				var data = JSON.parse(xhr.responseText);
+				cbFunction( data );
+			} else {
+			  console.error(xhr.responseText);
+			}
+		  }
+		};
+		xhr.open('GET', url ); // 메소드와 주소 설정
+		xhr.send(); // 요청 전송 
+	}
+	
+	var _evt_click_menu = function( e ){
+		//debugger;
+		var _target = e.target.className;
+		var _els = window.document.getElementsByClassName( _target );
+		var i = 0,iLen = _els.length,io;
+		for(;i<iLen;++i){
+			io = _els[ i ];
+			io.style.backgroundColor = "#FFF";
+			io.style.color = "#000";
+		}
+		e.target.style.backgroundColor = "#FFFF00";
+		e.target.style.color = "#FF0000";
+	}
+
+	var renderTableByKeyword = function(el,data){
+			
+			var _r = "<table class='ui celled table'>"		
+			_r += `
+			<thead><tr><th>Keyword</td></th></thead>
+			`
+			var idx = 0
+			var cellCnt = 10;
+			var i = 0,iLen = data.length,io;
+			
+			var cellWidth = 100/iLen
+			for(;i<iLen;++i){
+				
+				io = data[ i ];
+				//if( idx == 0 ){
+					_r += "<tr>";	
+				//}
+							
+				_r += "<td class='keyword' data-key='" + io + "' style='cursor: pointer;width:" + cellWidth + "%;'>" + io + "</td>";
+
+				//if( idx == 10 || iLen - 1 == i )
+				//{
+					_r += "</tr>";
+				//	idx == 0
+				//}
+				//else
+				//{
+				//	++idx;
+				//}
+
+				
+			}
+			
+			_r += "</table>"
+
+			el.innerHTML = _r;
+	}
+
+	var renderTableByDate = function(el,data,keyword){
+			
+			var _r = "<table class='ui celled table'>"		
+			_r += `
+				<thead><tr><th>Date</td></th></thead>
+			`	
+
+			var idx = 0
+			var cellCnt = 10;
+			var i = 0,iLen = data.length,io;
+			
+			var cellWidth = 100/iLen
+			for(;i<iLen;++i){
+				
+				io = data[ i ];
+				//if( idx == 0 ){
+					_r += "<tr>";	
+				//}
+							
+				_r += "<td class='date_dir' data-key='" + io  +"' data-keyword='" + keyword + "' style='cursor: pointer;width:" + cellWidth + "%;'>" + io + "</td>";
+
+				//if( idx == 10 || iLen - 1 == i )
+				//{
+					_r += "</tr>";
+				//	idx == 0
+				//}
+				//else
+				//{
+				//	++idx;
+				//}
+
+				
+			}
+			
+			_r += "</table>"
+
+			el.innerHTML = _r;
+	}
+
+	var renderTableByJsonList = function(el,data,keyword,date){
+			
+			var _r = "<table class='ui celled table'>"		
+			var i = 0,iLen = data.length,io;
+			_r += `
+			<thead><tr><th>Data</th></tr></thead>
+			`
+			for(;i<iLen;++i){
+				
+				io = data[ i ].split(".")[0];
+				_r += "<tr>"
+				_r += "<td class='jsonFile' data-key='" + io + "' data-date='" + date + "' data-keyword='" + keyword + "' style='cursor: pointer;'>" + io + "</td>"
+				_r += "</tr>"
+			}
+			_r += "</table>"
+
+			el.innerHTML = _r;
+	}
+
+	/*
+
+    {
+        "isNew": 0,
+        "websiteNm": "coupang",
+        "url": "https://www.coupang.com//vp/products/271016643?itemId=851584624&vendorItemId=5163146613&sourceType=srp_product_ads",
+        "prd_id": "5163146613",
+        "img": "https://thumbnail10.coupangcdn.com/thumbnails/remote/230x230ex/image/retail/images/263575953281-71d85db7-ad9b-474f-80d8-b97bf1f98744.jpg",
+        "nm": "에센허브 티트리 90 카밍 토너 320ml x 2p + 패드 10p, 1세트",
+        "brand": "에센허브",
+        "salePrice": 20900,
+        "msrp": 25900,
+        "isRocket": 1,
+        "saleRatio": 0.19,
+        "isSoldOut": 0,
+        "info": [],
+        "review": 771,
+        "isAd": 1,
+        "rank": -1,
+        "page": 1
+    },
+	*/
+
+	window.document.addEventListener("DOMContentLoaded", () => {
+		
+		window.HTML = {};
+		window.HTML._el = {};
+		window.HTML._el.input_keyword_search = window.document.getElementById("keyword_search");
+		
+		window.HTML._el.prdList_link = window.document.getElementById("prdList")
+		window.HTML._el.prdList_link_caryophy = window.document.getElementById("prdList_caryophy");
+		window.HTML._el.jsonList = window.document.getElementById("jsonList");
+		window.HTML._el.dateList = window.document.getElementById("dateList");
+		window.HTML._el.json_link = window.document.getElementsByClassName("jsonFile")	
+		window.HTML._el.contents = window.document.getElementById("contents");
+		window.HTML._el.lnb = window.document.getElementById("lnb");
+
+		window.HTML._el.date_dir = window.document.getElementsByClassName("date_dir");
+
+		window.HTML._el.setting = {};
+		window.HTML._el.setting.bottom_pad = 77;
+		
+		window.HTML._el.lnb.style.height = ( window.innerHeight - window.HTML._el.setting.bottom_pad + 50 ) + "px";
+
+
+		window.HTML._el.title_fileNm = ""
+		window.HTML._el.title_date = ""
+		window.HTML._el.title_keyword = ""
+
+		//키워드리스트호출;
+		var url = "http://localhost:3000/json/"
+		getDataByJson(url,function(data){
+
+			renderTableByKeyword( window.HTML._el.contents, data)
+			
+			window.HTML._el.keyword_link = window.document.getElementsByClassName("keyword")
+			var i = 0,iLen = window.HTML._el.keyword_link.length,io;
+			for(;i<iLen;++i){
+				io = window.HTML._el.keyword_link[ i ];
+				io.addEventListener("click",function(e){
+					var keyword = e.target.getAttribute("data-key");
+					var url00 = "http://localhost:3000/json/" + keyword;
+					_evt_click_menu( e )
+					window.HTML._el.jsonList.innerHTML = "";
+					//Date 리스트호출;
+					getDataByJson( url00, function(data){
+						renderTableByDate(window.HTML._el.dateList,data,keyword)
+				
+						//event;
+						window.HTML._el.date_dir = window.document.getElementsByClassName("date_dir");
+						var i = 0,iLen = window.HTML._el.date_dir.length,io;
+						for(;i<iLen;++i){
+							io = window.HTML._el.date_dir[ i ];
+							io.addEventListener("click",function(e){
+								
+								var date = e.target.getAttribute("data-key");
+								var keyword = e.target.getAttribute("data-keyword");
+								_evt_click_menu( e )
+
+								var url01 = "http://localhost:3000/json/" + keyword + "/" + date;
+								getDataByJson( url01, function(data){
+									renderTableByJsonList(window.HTML._el.jsonList,data,keyword,date)
+									
+									//event;
+									window.HTML._el.jsonFile = window.document.getElementsByClassName("jsonFile");
+									var i = 0,iLen = window.HTML._el.jsonFile.length,io;
+									for(;i<iLen;++i){
+										io = window.HTML._el.jsonFile[ i ];
+										io.addEventListener("click",function(e){
+											loader.on()
+											_evt_click_menu( e )
+
+											window.HTML._el.title_fileNm = e.target.getAttribute("data-key");
+											window.HTML._el.title_date = e.target.getAttribute("data-date");
+											window.HTML._el.title_keyword = e.target.getAttribute("data-keyword");
+
+											var url02 = "http://localhost:3000/json/" + window.HTML._el.title_keyword + "/" + window.HTML._el.title_date + "/" + window.HTML._el.title_fileNm;
+											getDataByJson( url02, function(data){
+												window._coupang_.data = data;
+												insertCardByprdId( data,function(){
+													window.HTML._el.prd_list_title_self.innerText =  "Carypohy - " + window.HTML._el.title_keyword + " - " + window.HTML._el.title_date + " - " + window.HTML._el.title_fileNm.split( "__" )[ 1 ]	
+												})
+												insertCard( data, "" ,function(){
+													window.HTML._el.prd_list_title.innerText = "All - " + window.HTML._el.title_keyword + " - " + window.HTML._el.title_date + " - " + window.HTML._el.title_fileNm.split( "__" )[ 1 ]	
+												})
+												loader.off()
+
+											})
+										})
+									}
+
+								})
+							})
+						}
+
+					})
+				})
+			}			
+		})
+
+
+
+		window.document.addEventListener( "keypress",function(e){
+			e = e || window.event;
+			//search;
+			if( e.target.id == "keyword_search" )    
+			{
+
+				if( e.keyCode == 13 )
+				{	
+					loader.on();
+					var keyword = window.HTML._el.input_keyword_search.value;
+
+					insertCard(  window._coupang_.data, keyword , function(){
+						window.HTML._el.prd_list_title.innerText = keyword + " - " + window.HTML._el.title_keyword + " - " + window.HTML._el.title_date + " - " + window.HTML._el.title_fileNm.split( "__" )[ 1 ]	
+					})
+
+					loader.off();
+				}
+			}
+		})
+
+	});
+
+
+    </script>
+    <body style="overflow-y: hidden;">
+
+        <div class="ui grid" style="padding:30px;">
+           <div class="two wide column" id="lnb" style="overflow-y:auto">
+				<div class="sixteen wide column" id="prdList_filter">
+					<div class="ui fluid icon input">
+					  <input type="text" placeholder="검색 키워드를 입력하세요!" id="keyword_search">
+					  <i class="search icon"></i>
+					</div>
+				</div>
+                <div class="sixteen wide column" id="contents" style="margin-top:10px;">
+                
+				</div>
+               <div class="sixteen wide column" id="dateList" style="margin-top:10px;">
+                
+				</div>
+				<div class="sixteen wide column" id="jsonList" style="margin-top:10px;">
+					
+				</div>
+            </div>
+                					
+			<div class="seven wide column" id="prdList_caryophy">
+
+			</div>
+			<div class="seven wide column" id="prdList">
+			
+			</div>
+        </div>
+    </body>
+    <div id="loader" class="ui active dimmer" style="display: none;position: fixed;">
+        <div class="ui text loader">데이터를 불러오고 있습니다.</div>
+    </div>
+</html>
