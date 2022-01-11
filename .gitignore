@@ -1,0 +1,11 @@
+# directory
+DataBase/0/
+html/
+json/
+node_modules/
+Log/
+
+# files
+
+*.result
+_cmd.exe
